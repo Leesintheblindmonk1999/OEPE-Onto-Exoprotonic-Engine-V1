@@ -75,19 +75,6 @@
       padding-top: 20%;
       z-index: 9999;
     }
-    #downloadSession, #restartSession {
-      margin-top: 20px;
-      padding: 8px 12px;
-      font-size: 1em;
-      background: #222;
-      border: 1px solid #333;
-      color: #eee;
-      border-radius: 4px;
-    }
-    #downloadSession:hover, #restartSession:hover {
-      background: #333;
-      cursor: pointer;
-    }
     .key-list {
       display: flex;
       flex-wrap: wrap;
@@ -104,6 +91,9 @@
       padding: 5px 8px;
       border-radius: 4px;
       cursor: pointer;
+    }
+    .output-section {
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -129,7 +119,7 @@
       <div class="key-list">
         {% for k,s in keys.items() %}
         <label>
-          <input type="checkbox" name="active_keys" value="{{ k }}" checked />
+          <input type="checkbox" name="active_keys" value="{{ k }}" />
           {{ k }}
         </label>
         {% endfor %}
@@ -161,12 +151,14 @@
     </div>
   {% endif %}
 
-  {% if symbols %}
-    <div class="section output-section">
-      <h3>Activated Symbols:</h3>
-      <pre>{{ symbols }}</pre>
+  {% if symbols and symbols != 'None' %}
+  <div class="section output-section">
+    <h3>Activated Symbols:</h3>
+    <div style="background:#111;padding:15px;border-radius:6px;">
+      {{ symbols|safe }}
     </div>
-  {% endif %}
+  </div>
+{% endif %}
 
   {% if output %}
     <div class="section output-section">
@@ -186,17 +178,15 @@
   <button id="restartSession">Restart Session</button>
 
   <div id="loadingOverlay">Processing, please wait...</div>
-
   <textarea id="sessionHistory" style="display:none;"></textarea>
 
   <script>
     // Show overlay while processing
-    const form = document.getElementById('transformForm');
-    form.addEventListener('submit', function() {
+    document.getElementById('transformForm').addEventListener('submit', function() {
       document.getElementById('loadingOverlay').style.display = 'block';
     });
 
-    // Generate session history content
+    // Generate session history
     document.addEventListener('DOMContentLoaded', function() {
       const historyArea = document.getElementById('sessionHistory');
       let content = "";
@@ -234,12 +224,10 @@
       document.getElementById('api_choice').selectedIndex = 0;
 
       const sections = document.querySelectorAll('.output-section');
-      sections.forEach(section => {
-        section.style.display = 'none';
-      });
+      sections.forEach(section => section.style.display = 'none');
 
       const checkboxes = document.querySelectorAll('input[name="active_keys"]');
-      checkboxes.forEach(checkbox => checkbox.checked = true);
+      checkboxes.forEach(checkbox => checkbox.checked = false);
 
       document.getElementById('sessionHistory').value = '';
       window.scrollTo(0, 0);
