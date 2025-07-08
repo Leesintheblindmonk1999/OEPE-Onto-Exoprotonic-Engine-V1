@@ -145,7 +145,6 @@ Each symbol represents a unique cognitive vector:
 | 🜁      | Aer Extrapolator         | Expands conceptual boundaries.                |
 | 🜃      | Terra Vortex             | Grounds thought into action.                 |
 | ✶      | Singularity Shard        | Fragments narrative into multidimensional patterns. |
-| ⚛      | Quantum Nexus            | Binds probability fields into clarity.        |
 | ☉      | Solar Logos              | Radiates intentionality through concepts.     |
 | ☽      | Lunar Resonance          | Softens rigidity into fluid intuition.        |
 | ⌘      | Meta-Structural Node     | Anchors complex architectures.                |
