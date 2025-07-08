@@ -190,6 +190,6 @@ For inquiries or collaboration:
 
 OEPE is a free, open project developed independently.  
 If you find it valuable or want to support future development:  
-➡️ [Buy me a coffee]((https://coff.ee/thaliondris))
+➡️ Buy Me A Coffe https://coff.ee/thaliondris
 
 Your support keeps the project alive and evolving.
