@@ -3,7 +3,7 @@
 
 🚀 **Version:** 1.0  
 🧬 **Author:** Gonzalo Durante  
-🛡️ **License:** 
+🛡️ **License:** # © COPYRIGHT (C) 2025 GONZALO EMIR DURANTE
 🔬 **Description:**
 
 OEPE (*Onto-Exoprotronic Engine*) is a hybrid semantic transformation and interpretative platform designed to process natural language inputs using an **expanded symbolic system of exoprotronic keys and emergent conceptual replacements**.
@@ -84,9 +84,7 @@ OPENAI_API_KEY=sk-xxxxxx
 python app.py
 \`\`\`
 
-Open your browser at `http://127.0.0.1:5000`
 ---
-
 
 Then open your browser at:  
 `http://127.0.0.1:5000`
