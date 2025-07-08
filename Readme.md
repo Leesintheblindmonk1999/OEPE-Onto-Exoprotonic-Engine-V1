@@ -184,5 +184,5 @@ If you intend to use OEPE beyond educational or artistic contexts, please consul
 For inquiries or collaboration:  
 📧 **Email:** connorgon@hotmail.com 
 🌐 **Linkeid** https://www.linkedin.com/in/gonzalo-emir-8178b6277/
-🐙 **GitHub:** [Leesintheblindmonk199](https://github.com/Leesintheblindmonk199)
+🐙 **GitHub:** [Leesintheblindmonk199](https://github.com/Leesintheblindmonk1999)
 
