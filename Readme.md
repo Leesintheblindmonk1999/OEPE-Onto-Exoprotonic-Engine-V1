@@ -2,7 +2,7 @@
 # OEPE – Onto-Exoprotronic Engine
 
 🚀 **Version:** 1.0  
-🧬 **Author:** Gonzalo Durante  
+🧬 **Author:** Gonzalo Emir (Thaliondris)  
 🛡️ **License:** # © COPYRIGHT (C) 2025 GONZALO EMIR DURANTE
 🔬 **Description:**
 
@@ -54,7 +54,6 @@ It offers:
 ├── transformer.py     # Core transformation logic and exoprotronic keys
 ├── templates/
 │   └── index.html     # Main web interface
-├── static/            # CSS and assets (if any)
 ├── .env               # API keys and environment variables
 └── README.md          # This documentation
 
