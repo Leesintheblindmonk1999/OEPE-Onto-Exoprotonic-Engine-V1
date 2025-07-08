@@ -185,13 +185,6 @@ By using OEPE, you acknowledge:
 
 ---
 
-## 🛡️ Disclaimer
-
-This software is provided "as is" without warranty.  
-By using OEPE, you accept full responsibility.
-
----
-
 ## 🔗 Contact
 
 For inquiries or collaboration:  
