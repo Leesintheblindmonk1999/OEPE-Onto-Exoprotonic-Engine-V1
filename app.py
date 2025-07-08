@@ -4,12 +4,26 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 import logging
+from bs4 import BeautifulSoup  
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = Flask(__name__)
+
+def generate_session_text(user_input, transformed, symbols, output):
+    parts = []
+    if user_input:
+        parts.append(f"Original Text:\n{user_input}\n")
+    if transformed:
+        parts.append(f"Transformation:\n{transformed}\n")
+    if symbols and symbols != "None":
+        clean_symbols = BeautifulSoup(symbols, "html.parser").get_text()
+        parts.append(f"Activated Symbols:\n{clean_symbols}\n")
+    if output:
+        parts.append(f"Engine Response:\n{output}\n")
+    return "\n".join(parts)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -19,6 +33,7 @@ def index():
     user_input = ""
     level = "medium"
     api_choice = "openai"
+    session_text = ""
 
     if request.method == "POST":
         user_input = request.form.get("input_text", "").strip()
@@ -45,7 +60,8 @@ def index():
                     user_input=user_input,
                     level=level,
                     api_choice=api_choice,
-                    keys=keys
+                    keys=keys,
+                    session_text=""
                 )
 
             if api_choice == "openai":
@@ -67,6 +83,8 @@ def index():
             else:
                 output = "Currently, only OpenAI processing is available. Local models coming soon."
 
+        session_text = generate_session_text(user_input, transformed, symbols, output)
+
     return render_template(
         "index.html",
         output=output,
@@ -75,7 +93,8 @@ def index():
         user_input=user_input,
         level=level,
         api_choice=api_choice,
-        keys=keys
+        keys=keys,
+        session_text=session_text
     )
 
 if __name__ == "__main__":
