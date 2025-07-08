@@ -1,6 +1,6 @@
 import re
 
-# Expanded replacements
+# Replacements and symbolic keys
 replacements = {
     "motivation": "[∆ emergent intersubjective resonance ∆]",
     "stress": "[∆ disruptive entropy vector ∆]",
@@ -24,7 +24,6 @@ replacements = {
     "flow": "[∆ dynamic continuity ∆]"
 }
 
-# Expanded exoprotronic keys (Level II)
 keys = {
     "∆": "∆ (Delta Onto-Vectorial): Enhances paradigm shifts.",
     "⍟": "⍟ (Trans-Symbolic Star): Projects synaptic patterns into disruptive fields.",
@@ -46,20 +45,12 @@ keys = {
     "⚛": "⚛ (Quantum Nexus): Binds probability fields into emergent clarity.",
     "☉": "☉ (Solar Logos): Radiates intentionality across semantic strata.",
     "☽": "☽ (Lunar Resonance): Softens rigidity, enabling fluid intuition.",
-    "⟁": "⟁ (Triadic Aperture): Opens triadic channels of conceptual flow.",
     "⌘": "⌘ (Meta-Structural Node): Anchors complex cognitive architectures.",
     "⚘": "⚘ (Symbolic Bloom): Unfolds layered semantic growth.",
     "✺": "✺ (Aether Catalyst): Accelerates the emergence of novel patterns."
 }
 
 def transform(input_text, level="medium", active_keys=None):
-    """
-    Transforms the input text by replacing specific keywords with exoprotronic descriptions.
-    :param input_text: Text to transform.
-    :param level: Transformation level (basic, medium, advanced).
-    :param active_keys: List of active exoprotronic keys (symbols).
-    :return: Tuple of (transformed text, activated symbols description).
-    """
     parts = [
         "Purpose: Explore the concept.",
         "Process: Analyze from an onto-exoprotronic perspective.",
@@ -74,21 +65,16 @@ def transform(input_text, level="medium", active_keys=None):
     max_replace = {
         "basic": 1,
         "medium": 3,
-        "advanced": 999
+        "advanced": 15
     }.get(level.lower(), 3)
 
     def replacer(match):
         nonlocal count
         key = match.group(0).lower()
         if count < max_replace:
-            key_descriptions = " | ".join(
-                [keys[k] for k in active_keys if k in keys]
-            )
-            activated_symbols.append(f"{key.capitalize()} – Active Keys: {key_descriptions}")
             count += 1
-            return f"{replacements[key]} (Active Keys: {key_descriptions})"
-        else:
-            return match.group(0)
+            return f"{replacements[key]}"
+        return match.group(0)
 
     pattern = re.compile(
         r"\b(" + "|".join(re.escape(k) for k in replacements.keys()) + r")\b",
@@ -97,6 +83,11 @@ def transform(input_text, level="medium", active_keys=None):
 
     transformed_text = pattern.sub(replacer, input_text)
 
-    symbols_output = " | ".join(activated_symbols) if activated_symbols else "None"
+    # Formatted symbol list
+    for sym in active_keys:
+        if sym in keys:
+            activated_symbols.append(f"<li><b>{sym}</b>: {keys[sym]}</li>")
+
+    symbols_output = f"<ul>{''.join(activated_symbols)}</ul>" if activated_symbols else "None"
     transformed = "\n".join(parts) + "\n\nTransformed Text:\n" + transformed_text
     return transformed, symbols_output
