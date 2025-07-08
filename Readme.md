@@ -2,7 +2,7 @@
 # OEPE – Onto-Exoprotronic Engine
 
 🚀 **Version:** 1.0  
-🧬 **Author:** Gonzalo Emir (Thaliondris)  
+🧬 **Author:** Gonzalo Emir (Thaliondris-LeesinTheblindMonk1999)  
 🛡️ **License:** Apache License 2.0
 
 # 🔬 **Description:** 
