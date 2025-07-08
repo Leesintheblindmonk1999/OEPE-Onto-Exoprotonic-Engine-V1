@@ -47,40 +47,46 @@ It offers:
 
 ## 📂 Project Structure
 
-> _“ /OEPE
+```plaintext
+
+/OEPE
 ├── app.py             # Flask server and OpenAI integration
 ├── transformer.py     # Core transformation logic and exoprotronic keys
 ├── templates/
 │   └── index.html     # Main web interface
 ├── static/            # CSS and assets (if any)
 ├── .env               # API keys and environment variables
-└── README.md          # This documentation.”_
+└── README.md          # This documentation
 
+```
 ---
 
 ## 🛠️🧭 Installation
 
 
 1️⃣ **Clone the repository**
-\`\`\`
+
+```
 git clone https://github.com/Leesintheblindmonk199/
-\`\`\`
+```
 
 2️⃣ **Install dependencies**
-\`\`\`
+```
 pip install flask python-dotenv openai or requeriments.txt
-\`\`\`
+```
 
 3️⃣ **Set up environment variables**
+```
 Create a `.env` file:
-\`\`\`
+```
+```
 OPENAI_API_KEY=sk-xxxxxx
-\`\`\`
+```
 
 4️⃣ **Run the application**
-\`\`\`
+```
 python app.py
-\`\`\`
+```
 
 ---
 
