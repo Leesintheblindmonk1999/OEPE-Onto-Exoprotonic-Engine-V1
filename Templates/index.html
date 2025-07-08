@@ -158,7 +158,7 @@
       {{ symbols|safe }}
     </div>
   </div>
-{% endif %}
+  {% endif %}
 
   {% if output %}
     <div class="section output-section">
@@ -178,7 +178,7 @@
   <button id="restartSession">Restart Session</button>
 
   <div id="loadingOverlay">Processing, please wait...</div>
-  <textarea id="sessionHistory" style="display:none;"></textarea>
+  <textarea id="sessionHistory" style="display:none;">{{ session_text }}</textarea>
 
   <script>
     // Show overlay while processing
@@ -186,30 +186,13 @@
       document.getElementById('loadingOverlay').style.display = 'block';
     });
 
-    // Generate session history
-    document.addEventListener('DOMContentLoaded', function() {
-      const historyArea = document.getElementById('sessionHistory');
-      let content = "";
-
-      {% if user_input %}
-        content += "Original Text:\n{{ user_input }}\n\n";
-      {% endif %}
-      {% if transformed %}
-        content += "Transformation:\n{{ transformed }}\n\n";
-      {% endif %}
-      {% if symbols %}
-        content += "Activated Symbols:\n{{ symbols }}\n\n";
-      {% endif %}
-      {% if output %}
-        content += "Engine Response:\n{{ output }}\n\n";
-      {% endif %}
-
-      historyArea.value = content;
-    });
-
     // Download session
     document.getElementById('downloadSession').addEventListener('click', function() {
       const text = document.getElementById('sessionHistory').value;
+      if (!text.trim()) {
+        alert("No session data available to download.");
+        return;
+      }
       const blob = new Blob([text], {type: 'text/plain'});
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -219,18 +202,7 @@
 
     // Restart session
     document.getElementById('restartSession').addEventListener('click', function() {
-      document.querySelector('textarea[name="input_text"]').value = '';
-      document.getElementById('level').selectedIndex = 1;
-      document.getElementById('api_choice').selectedIndex = 0;
-
-      const sections = document.querySelectorAll('.output-section');
-      sections.forEach(section => section.style.display = 'none');
-
-      const checkboxes = document.querySelectorAll('input[name="active_keys"]');
-      checkboxes.forEach(checkbox => checkbox.checked = false);
-
-      document.getElementById('sessionHistory').value = '';
-      window.scrollTo(0, 0);
+      window.location.reload();
     });
   </script>
 
