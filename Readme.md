@@ -186,3 +186,10 @@ For inquiries or collaboration:
 🌐 **Linkeid** https://www.linkedin.com/in/gonzalo-emir-8178b6277/
 🐙 **GitHub:** [Leesintheblindmonk199](https://github.com/Leesintheblindmonk1999)
 
+## ☕ Support
+
+OEPE is a free, open project developed independently.  
+If you find it valuable or want to support future development:  
+➡️ [Buy me a coffee]((https://coff.ee/thaliondris))
+
+Your support keeps the project alive and evolving.
