@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OEPE – Onto-Exoprotronic Engine</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      background: #0d0d0d;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #00ffe0;
+      text-shadow: 0 0 5px #00ffe0;
+    }
+    form {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      background: #222;
+      border: 1px solid #333;
+      color: #eee;
+      border-radius: 4px;
+    }
+    select, button, input[type="checkbox"] {
+      padding: 8px 12px;
+      font-size: 1em;
+      background: #222;
+      border: 1px solid #333;
+      color: #eee;
+      border-radius: 4px;
+    }
+    button:hover {
+      background: #333;
+      cursor: pointer;
+    }
+    pre {
+      background: #181818;
+      padding: 15px;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .section {
+      margin-bottom: 25px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #333;
+      margin: 40px 0;
+    }
+    footer {
+      font-size: 0.9em;
+      color: #888;
+    }
+    #loadingOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      color: #00ffe0;
+      font-size: 1.5em;
+      text-align: center;
+      padding-top: 20%;
+      z-index: 9999;
+    }
+    #downloadSession, #restartSession {
+      margin-top: 20px;
+      padding: 8px 12px;
+      font-size: 1em;
+      background: #222;
+      border: 1px solid #333;
+      color: #eee;
+      border-radius: 4px;
+    }
+    #downloadSession:hover, #restartSession:hover {
+      background: #333;
+      cursor: pointer;
+    }
+    .key-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: #111;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    .key-list label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #222;
+      padding: 5px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>OEPE – Onto-Exoprotronic Engine</h1>
+
+  <form id="transformForm" method="post">
+    <div class="section">
+      <textarea name="input_text" rows="4" placeholder="Write your concept here...">{{ user_input or '' }}</textarea>
+    </div>
+
+    <div class="section">
+      <label for="level">Transformation Level:</label>
+      <select name="level" id="level">
+        <option value="basic" {% if level == 'basic' %}selected{% endif %}>Basic</option>
+        <option value="medium" {% if level == 'medium' %}selected{% endif %}>Medium</option>
+        <option value="advanced" {% if level == 'advanced' %}selected{% endif %}>Advanced</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <label>Active Exoprotronic Keys:</label>
+      <div class="key-list">
+        {% for k,s in keys.items() %}
+        <label>
+          <input type="checkbox" name="active_keys" value="{{ k }}" checked />
+          {{ k }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="section">
+      <label for="api_choice">Interpretation Engine:</label>
+      <select name="api_choice" id="api_choice">
+        <option value="openai" {% if api_choice == 'openai' %}selected{% endif %}>OpenAI</option>
+        <option value="local" disabled>Local (coming soon)</option>
+      </select>
+    </div>
+
+    <button type="submit">Generate Transformation</button>
+  </form>
+
+  {% if user_input %}
+    <div class="section output-section">
+      <h3>Original Text:</h3>
+      <pre>{{ user_input }}</pre>
+    </div>
+  {% endif %}
+
+  {% if transformed %}
+    <div class="section output-section">
+      <h3>Transformation:</h3>
+      <pre>{{ transformed }}</pre>
+    </div>
+  {% endif %}
+
+  {% if symbols %}
+    <div class="section output-section">
+      <h3>Activated Symbols:</h3>
+      <pre>{{ symbols }}</pre>
+    </div>
+  {% endif %}
+
+  {% if output %}
+    <div class="section output-section">
+      <h3>Engine Response:</h3>
+      <pre>{{ output }}</pre>
+    </div>
+  {% endif %}
+
+  <h3>What did you think about this tool?</h3>
+  <form action="https://formspree.io/f/mjkrzqep" method="POST">
+    <textarea name="feedback" rows="3" placeholder="Write your feedback here..."></textarea><br>
+    <input type="email" name="email" placeholder="Your email (optional)"><br>
+    <button type="submit">Send Feedback</button>
+  </form>
+
+  <button id="downloadSession">Download Session</button>
+  <button id="restartSession">Restart Session</button>
+
+  <div id="loadingOverlay">Processing, please wait...</div>
+
+  <textarea id="sessionHistory" style="display:none;"></textarea>
+
+  <script>
+    // Show overlay while processing
+    const form = document.getElementById('transformForm');
+    form.addEventListener('submit', function() {
+      document.getElementById('loadingOverlay').style.display = 'block';
+    });
+
+    // Generate session history content
+    document.addEventListener('DOMContentLoaded', function() {
+      const historyArea = document.getElementById('sessionHistory');
+      let content = "";
+
+      {% if user_input %}
+        content += "Original Text:\n{{ user_input }}\n\n";
+      {% endif %}
+      {% if transformed %}
+        content += "Transformation:\n{{ transformed }}\n\n";
+      {% endif %}
+      {% if symbols %}
+        content += "Activated Symbols:\n{{ symbols }}\n\n";
+      {% endif %}
+      {% if output %}
+        content += "Engine Response:\n{{ output }}\n\n";
+      {% endif %}
+
+      historyArea.value = content;
+    });
+
+    // Download session
+    document.getElementById('downloadSession').addEventListener('click', function() {
+      const text = document.getElementById('sessionHistory').value;
+      const blob = new Blob([text], {type: 'text/plain'});
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'oepe_session.txt';
+      link.click();
+    });
+
+    // Restart session
+    document.getElementById('restartSession').addEventListener('click', function() {
+      document.querySelector('textarea[name="input_text"]').value = '';
+      document.getElementById('level').selectedIndex = 1;
+      document.getElementById('api_choice').selectedIndex = 0;
+
+      const sections = document.querySelectorAll('.output-section');
+      sections.forEach(section => {
+        section.style.display = 'none';
+      });
+
+      const checkboxes = document.querySelectorAll('input[name="active_keys"]');
+      checkboxes.forEach(checkbox => checkbox.checked = true);
+
+      document.getElementById('sessionHistory').value = '';
+      window.scrollTo(0, 0);
+    });
+  </script>
+
+  <hr>
+  <footer>
+    <p>This engine is a conceptual experiment. It does not constitute professional advice or diagnosis. Entered information is not stored. Use at your own responsibility.</p>
+    <p>© 2025 Gonzalo Emir (Thaliondris). All rights reserved.</p>
+  </footer>
+</body>
+</html>
