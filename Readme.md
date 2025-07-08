@@ -72,9 +72,11 @@ git clone https://github.com/Leesintheblindmonk199/
 
 2️⃣ **Install dependencies**
 ```
-pip install flask python-dotenv openai BeautifulSoup or requeriments.txt
+pip install flask python-dotenv openai BeautifulSoup
 ```
-
+```
+or requeriments.txt
+```
 3️⃣ **Set up environment variables**
 ```
 Create a `.env` file:
