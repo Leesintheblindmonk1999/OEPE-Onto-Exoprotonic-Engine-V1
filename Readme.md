@@ -3,8 +3,9 @@
 
 🚀 **Version:** 1.0  
 🧬 **Author:** Gonzalo Emir (Thaliondris)  
-🛡️ **License:** # © COPYRIGHT (C) 2025 GONZALO EMIR DURANTE
-🔬 **Description:**
+🛡️ **License:** Apache License 2.0
+
+# 🔬 **Description:** 
 
 OEPE (*Onto-Exoprotronic Engine*) is a hybrid semantic transformation and interpretative platform designed to process natural language inputs using an **expanded symbolic system of exoprotronic keys and emergent conceptual replacements**.
 
