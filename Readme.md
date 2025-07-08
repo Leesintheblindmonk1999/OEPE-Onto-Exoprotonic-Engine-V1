@@ -47,16 +47,14 @@ It offers:
 
 ## 📂 Project Structure
 
-\`\`\`
-/OEPE
-├── app.py              # Flask server and OpenAI integration
-├── transformer.py      # Core transformation logic and exoprotronic keys
+> _“ /OEPE
+├── app.py             # Flask server and OpenAI integration
+├── transformer.py     # Core transformation logic and exoprotronic keys
 ├── templates/
-│   └── index.html      # Main web interface
-├── static/             # CSS and assets (if any)
-├── .env                # API keys and environment variables
-└── README.md           # This documentation
-\`\`\`
+│   └── index.html     # Main web interface
+├── static/            # CSS and assets (if any)
+├── .env               # API keys and environment variables
+└── README.md          # This documentation.”_
 
 ---
 
