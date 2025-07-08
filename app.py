@@ -7,6 +7,7 @@ import logging
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
+
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = Flask(__name__)
 
@@ -54,7 +55,7 @@ def index():
                 )
                 try:
                     completion = client.chat.completions.create(
-                        model="gpt-4o-mini",
+                        model="gpt-4o",
                         messages=[
                             {"role": "system", "content": "You are a symbolic analyst."},
                             {"role": "user", "content": prompt}
@@ -64,7 +65,7 @@ def index():
                 except Exception as e:
                     output = f"Error processing with OpenAI: {e}"
             else:
-                output = "Currently, only OpenAI processing is available. Local models will be added soon."
+                output = "Currently, only OpenAI processing is available. Local models coming soon."
 
     return render_template(
         "index.html",
