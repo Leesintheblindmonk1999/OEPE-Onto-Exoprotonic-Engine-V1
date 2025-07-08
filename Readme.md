@@ -177,18 +177,12 @@ By using OEPE, you explicitly acknowledge and agree that:
 
 If you intend to use OEPE beyond educational or artistic contexts, please consult with a qualified professional.
 
-## 💡 Roadmap
-
-- [ ] Local model support  
-- [ ] Extended multilingual replacement sets  
-- [ ] User profiles with session history  
-- [ ] REST API for third-party integration  
-- [ ] Docker deployment
-
 ---
 
 ## 🔗 Contact
 
 For inquiries or collaboration:  
-📧 **Email:** connorgon@hotmail.com  
+📧 **Email:** connorgon@hotmail.com 
+🌐 **Linkeid** https://www.linkedin.com/in/gonzalo-emir-8178b6277/
 🐙 **GitHub:** [Leesintheblindmonk199](https://github.com/Leesintheblindmonk199)
+
